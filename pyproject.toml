@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-offat = "^0.13.0"
+offat = "^0.15.4"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
