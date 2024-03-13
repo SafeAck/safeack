@@ -15,6 +15,7 @@ from offat.utils import read_yaml
 
 # safeack package imports
 from .aws import upload_file
+from .client import SafeAckClient
 from .logger import logger
 from .utils import get_package_version
 
@@ -96,22 +97,24 @@ def start():
         required=True,
     )
     parser.add_argument(
-        '-h',
-        '--host-url',
-        dest='host',
+        '-bu',
+        '--base-url',
+        dest='base_url',
         type=str,
-        help='',
-        required=True,
+        help='base url for safeack backend server',
+        required=False,
+        # TODO: change this to prod domain name after BE deployment
         default='http://localhost:8080',
     )
 
     args = parser.parse_args()
 
-    # TODO: extract token and validate it
-    token = args.token
-    if not token:
-        logger.error('token required to initiate scan!')
+    safeack_client = SafeAckClient(base_url=args.base_url, token=args.token)
+    if not safeack_client.is_token_valid():
+        logger.error('Invalid Token')
         exit(-1)
+    else:
+        logger.info('Token is valid')
 
     # handle rate limiting options
     rate_limit = args.rate_limit
@@ -133,7 +136,7 @@ def start():
         regex_pattern=args.path_regex_pattern,
         output_file=file_name,
         output_file_format='json',
-        req_headers={'Authorization': f'Bearer {token}'},
+        req_headers={'Authorization': f'Bearer {args.token}'},
         rate_limit=rate_limit,
         test_data_config=test_data_config,
         proxy=None,
@@ -144,7 +147,16 @@ def start():
             file_name=file_name, bucket=args.s3_bucket, object_name=None
         )
 
-        # TODO: push file object path to backend
+        if s3_file_object and safeack_client.push_s3_result_path_to_safeack_backend(
+            s3_result_path=s3_file_object
+        ):
+            logger.info(
+                'S3 Bucket Results Object Path Uploaded to SafeAck Backend Successfully'
+            )
+        else:
+            logger.error(
+                'Failed to Upload S3 Bucket Results Object Path to SafeAck Backend'
+            )
     else:
         logger.error('Scan Completed: No Results Found')
 

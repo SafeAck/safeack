@@ -1,8 +1,6 @@
 """
 SafeAck CLI Utils
 """
-
-from hashlib import blake2b
 from uuid import uuid4
 
 from pkg_resources import get_distribution
@@ -18,7 +16,7 @@ def generate_result_filename():
     Returns:
         str: randomly generated str compatible with safeack backend
     '''
-    return blake2b(uuid4().bytes, digest_size=32).hexdigest()
+    return uuid4().hex
 
 
 def get_package_version():

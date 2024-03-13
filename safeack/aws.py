@@ -26,7 +26,7 @@ def upload_file(file_name, bucket, object_name=None) -> str:
 
     # If S3 object_name was not specified, use file_name
     if object_name is None:
-        object_name = f'results/{generate_result_filename()}.json'
+        object_name = f'safeack-results/{generate_result_filename()}.json'
 
     # Upload the file
     logger.info('Uploading result file to s3 bucket')
@@ -38,6 +38,8 @@ def upload_file(file_name, bucket, object_name=None) -> str:
             bucket,
             object_name,
         )
+        s3_file_path = f's3://{bucket}/{object_name}'
+
     except ClientError as e:
         logger.error(
             'Failed to upload file %s to s3://%s/%s; Due to error: %s',
