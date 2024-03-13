@@ -4,7 +4,7 @@ AWS utils
 
 from sys import exc_info
 
-from boto3 import client
+from boto3 import client, resource
 from botocore.exceptions import ClientError
 from offat.logger import logger
 
@@ -29,12 +29,15 @@ def upload_file(file_name, bucket, object_name=None) -> str:
         object_name = f'results/{generate_result_filename()}.json'
 
     # Upload the file
-    s3_client = client('s3')
+    logger.info('Uploading result file to s3 bucket')
     try:
-        response = s3_client.upload_file(file_name, bucket, object_name)
-        logger.info('File %s uploaded successfully to s3://%s/%s', file_name, bucket, object_name)
-        logger.info(response)
-
+        client('s3').upload_file(file_name, bucket, object_name)
+        logger.info(
+            'File %s uploaded successfully to s3://%s/%s',
+            file_name,
+            bucket,
+            object_name,
+        )
     except ClientError as e:
         logger.error(
             'Failed to upload file %s to s3://%s/%s; Due to error: %s',

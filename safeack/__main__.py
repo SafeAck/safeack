@@ -14,7 +14,9 @@ from offat.parsers import create_parser
 from offat.utils import read_yaml
 
 # safeack package imports
+from .aws import upload_file
 from .logger import logger
+from .utils import get_package_version
 
 
 def banner():
@@ -23,14 +25,14 @@ def banner():
     '''
     print(
         r'''
- ,---.           ,---.         ,---.        ,--.     
-'   .-'  ,--,--./  .-' ,---.  /  O  \  ,---.|  |,-.  
-`.  `-. ' ,-.  ||  `-,| .-. :|  .-.  || .--'|     /  
-.-'    |\ '-'  ||  .-'\   --.|  | |  |\ `--.|  \  \  
+ ,---.           ,---.         ,---.        ,--.
+'   .-'  ,--,--./  .-' ,---.  /  O  \  ,---.|  |,-.
+`.  `-. ' ,-.  ||  `-,| .-. :|  .-.  || .--'|     /
+.-'    |\ '-'  ||  .-'\   --.|  | |  |\ `--.|  \  \
 `-----'  `--`--'`--'   `----'`--' `--' `---'`--'`--'
                 https://safeack.com
     '''
-    )
+    )  # noqa: W291
 
 
 def start():
@@ -82,9 +84,27 @@ def start():
         '--test-data-config',
         dest='test_data_config',
         help='YAML file containing user test data for tests',
-        required=False,
         type=str,
+        required=False,
     )
+    parser.add_argument(
+        '-b',
+        '--bucket',
+        dest='s3_bucket',
+        type=str,
+        help='AWS s3 bucket name',
+        required=True,
+    )
+    parser.add_argument(
+        '-h',
+        '--host-url',
+        dest='host',
+        type=str,
+        help='',
+        required=True,
+        default='http://localhost:8080',
+    )
+
     args = parser.parse_args()
 
     # TODO: extract token and validate it
@@ -102,11 +122,13 @@ def start():
         test_data_config = read_yaml(args.test_data_config)
         test_data_config = validate_config_file_data(test_data_config)
 
-    file_name = pjoin('results', f'result-{datetime.now(UTC).strftime("%Y-%m-%d-%H_%M_%S")}.json')
+    file_name = pjoin(
+        'results', f'{datetime.now(UTC).strftime("%Y%m%d%H%M%S")}-safeack-result.json'
+    )
 
     # parse args and run tests
     api_parser = create_parser(args.fpath)
-    generate_and_run_tests(
+    results = generate_and_run_tests(
         api_parser=api_parser,
         regex_pattern=args.path_regex_pattern,
         output_file=file_name,
@@ -116,6 +138,15 @@ def start():
         test_data_config=test_data_config,
         proxy=None,
     )
+    if results:
+        logger.info('Scan Completed: Results Found and Captured')
+        s3_file_object = upload_file(
+            file_name=file_name, bucket=args.s3_bucket, object_name=None
+        )
+
+        # TODO: push file object path to backend
+    else:
+        logger.error('Scan Completed: No Results Found')
 
 
 if __name__ == '__main__':
