@@ -4,7 +4,7 @@ AWS utils
 
 from sys import exc_info
 
-from boto3 import client, resource
+from boto3 import client
 from botocore.exceptions import ClientError
 from offat.logger import logger
 
