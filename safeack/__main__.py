@@ -1,12 +1,18 @@
+"""
+SafeAck Main Module
+"""
+# stdlib package imports
 from argparse import ArgumentParser
-from datetime import datetime, UTC
 from os.path import join as pjoin
 
-
+# package imports
 from offat.config_data_handler import validate_config_file_data
 from offat.tester.tester_utils import generate_and_run_tests
 from offat.parsers import create_parser
 from offat.utils import headers_list_to_dict, read_yaml
+
+# safeack package imports
+from .utils import generate_result_filename
 
 
 def banner():
@@ -58,7 +64,7 @@ def start():
         test_data_config = read_yaml(args.test_data_config)
         test_data_config = validate_config_file_data(test_data_config)
 
-    file_name = pjoin('results', f'result-{datetime.now(UTC).strftime("%Y-%m-%d-%H_%M_%S")}.json')
+    file_name = pjoin('results', f'{generate_result_filename()}.json')
 
     # parse args and run tests
     api_parser = create_parser(args.fpath)
