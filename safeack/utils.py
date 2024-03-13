@@ -1,8 +1,10 @@
 """
 SafeAck CLI Utils
 """
+
 from hashlib import blake2b
 from uuid import uuid4
+
 
 def generate_result_filename():
     '''

@@ -1,32 +1,36 @@
 """
 SafeAck Main Module
 """
+
 # stdlib package imports
 from argparse import ArgumentParser
+from datetime import datetime, UTC
 from os.path import join as pjoin
 
 # package imports
 from offat.config_data_handler import validate_config_file_data
 from offat.tester.tester_utils import generate_and_run_tests
 from offat.parsers import create_parser
-from offat.utils import headers_list_to_dict, read_yaml
+from offat.utils import read_yaml
 
 # safeack package imports
-from .utils import generate_result_filename
+from .logger import logger
 
 
 def banner():
     '''
     Prints SafeAck Banner
     '''
-    print(r'''
+    print(
+        r'''
  ,---.           ,---.         ,---.        ,--.     
 '   .-'  ,--,--./  .-' ,---.  /  O  \  ,---.|  |,-.  
 `.  `-. ' ,-.  ||  `-,| .-. :|  .-.  || .--'|     /  
 .-'    |\ '-'  ||  .-'\   --.|  | |  |\ `--.|  \  \  
 `-----'  `--`--'`--'   `----'`--' `--' `---'`--'`--'
                 https://safeack.com
-    ''')
+    '''
+    )
 
 
 def start():
@@ -36,24 +40,58 @@ def start():
     banner()
 
     parser = ArgumentParser(prog='safeack')
-    parser.add_argument('-f', '--file', dest='fpath', type=str,
-                        help='path or url of openapi/swagger specification file', required=True)
-    parser.add_argument('-rl', '--rate-limit', dest='rate_limit',
-                        help='API requests rate limit per second', type=float, default=60, required=False)
-    parser.add_argument('-pr', '--path-regex', dest='path_regex_pattern', type=str,
-                        help='run tests for paths matching given regex pattern', required=False, default=None)
-    parser.add_argument('-o', '--output', dest='output_file', type=str,
-                        help='path to store test results in specified format. Default format is html', required=False, default=None)
-    parser.add_argument('-of', '--format', dest='output_format', type=str, choices=[
-                        'json', 'yaml', 'html', 'table'], help='Data format to save (json, yaml, html, table). Default: table', required=False, default='json')
-    parser.add_argument('-H', '--headers', dest='headers', type=str,
-                        help='HTTP requests headers that should be sent during testing eg: User-Agent: safeack', required=False, default=None, action='append', nargs='*')
-    parser.add_argument('-tdc', '--test-data-config', dest='test_data_config',
-                        help='YAML file containing user test data for tests', required=False, type=str)
+    parser.add_argument(
+        '-f',
+        '--file',
+        dest='fpath',
+        type=str,
+        help='path or url of openapi/swagger specification file',
+        required=True,
+    )
+    parser.add_argument(
+        '-v', '--version', action='version', version=f'%(prog)s {get_package_version()}'
+    )
+    parser.add_argument(
+        '-rl',
+        '--rate-limit',
+        dest='rate_limit',
+        help='API requests rate limit per second',
+        type=float,
+        default=60,
+        required=False,
+    )
+    parser.add_argument(
+        '-pr',
+        '--path-regex',
+        dest='path_regex_pattern',
+        type=str,
+        help='run tests for paths matching given regex pattern',
+        required=False,
+        default=None,
+    )
+    parser.add_argument(
+        '-t',
+        '--token',
+        dest='token',
+        type=str,
+        help='HTTP requests headers that should be sent during testing eg: User-Agent: offat',
+        required=True,
+    )
+    parser.add_argument(
+        '-tdc',
+        '--test-data-config',
+        dest='test_data_config',
+        help='YAML file containing user test data for tests',
+        required=False,
+        type=str,
+    )
     args = parser.parse_args()
 
-    # convert req headers str to dict
-    headers_dict: dict = headers_list_to_dict(args.headers)
+    # TODO: extract token and validate it
+    token = args.token
+    if not token:
+        logger.error('token required to initiate scan!')
+        exit(-1)
 
     # handle rate limiting options
     rate_limit = args.rate_limit
@@ -64,7 +102,7 @@ def start():
         test_data_config = read_yaml(args.test_data_config)
         test_data_config = validate_config_file_data(test_data_config)
 
-    file_name = pjoin('results', f'{generate_result_filename()}.json')
+    file_name = pjoin('results', f'result-{datetime.now(UTC).strftime("%Y-%m-%d-%H_%M_%S")}.json')
 
     # parse args and run tests
     api_parser = create_parser(args.fpath)
@@ -72,10 +110,11 @@ def start():
         api_parser=api_parser,
         regex_pattern=args.path_regex_pattern,
         output_file=file_name,
-        output_file_format=args.output_format,
-        req_headers=headers_dict,
+        output_file_format='json',
+        req_headers={'Authorization': f'Bearer {token}'},
         rate_limit=rate_limit,
         test_data_config=test_data_config,
+        proxy=None,
     )
 
 
