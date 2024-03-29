@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-offat = "^0.15.4"
+offat = "^0.16.0"
 boto3 = "^1.34.61"
 
 [tool.poetry.group.dev.dependencies]

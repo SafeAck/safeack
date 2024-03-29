@@ -141,17 +141,17 @@ tests-no-zope = ["attrs[tests-mypy]", "cloudpickle", "hypothesis", "pympler", "p
 
 [[package]]
 name = "boto3"
-version = "1.34.61"
+version = "1.34.73"
 description = "The AWS SDK for Python"
 optional = false
-python-versions = ">= 3.8"
+python-versions = ">=3.8"
 files = [
-    {file = "boto3-1.34.61-py3-none-any.whl", hash = "sha256:992e994c7e481a5d3259c699574882b79d631a46f7c369bea350b7ccb0651317"},
-    {file = "boto3-1.34.61.tar.gz", hash = "sha256:4b40bf2c8494647c9e88c180537dc9fc0c1047a9fffbb1e5b0da6596f1e59b7b"},
+    {file = "boto3-1.34.73-py3-none-any.whl", hash = "sha256:4d68e7c7c1339e251c661fd6e2a34e31d281177106326712417fed839907fa84"},
+    {file = "boto3-1.34.73.tar.gz", hash = "sha256:f45503333286c03fb692a3ce497b6fdb4e88c51c98a3b8ff05071d7f56571448"},
 ]
 
 [package.dependencies]
-botocore = ">=1.34.61,<1.35.0"
+botocore = ">=1.34.73,<1.35.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.10.0,<0.11.0"
 
@@ -160,19 +160,19 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.34.61"
+version = "1.34.73"
 description = "Low-level, data-driven core of boto 3."
 optional = false
-python-versions = ">= 3.8"
+python-versions = ">=3.8"
 files = [
-    {file = "botocore-1.34.61-py3-none-any.whl", hash = "sha256:079f3288d38f97fd5656c25c44a94bea0e7090b938abfdeea463eaadb210c4a0"},
-    {file = "botocore-1.34.61.tar.gz", hash = "sha256:72df4af7e4e6392552c882d48c74e4be9bf7be4cd8d829711b312fbae13d7034"},
+    {file = "botocore-1.34.73-py3-none-any.whl", hash = "sha256:88d660b711cc5b5b049e15d547cb09526f86e48c15b78dacad78522109502b91"},
+    {file = "botocore-1.34.73.tar.gz", hash = "sha256:8df020b6682b9f1e9ee7b0554d5d0c14b7b23e3de070c85bcdf07fb20bfe4e2b"},
 ]
 
 [package.dependencies]
 jmespath = ">=0.7.1,<2.0.0"
 python-dateutil = ">=2.1,<3.0.0"
-urllib3 = {version = ">=1.25.4,<2.1", markers = "python_version >= \"3.10\""}
+urllib3 = {version = ">=1.25.4,<2.2.0 || >2.2.0,<3", markers = "python_version >= \"3.10\""}
 
 [package.extras]
 crt = ["awscrt (==0.19.19)"]
@@ -651,13 +651,13 @@ files = [
 
 [[package]]
 name = "offat"
-version = "0.15.4"
+version = "0.16.0"
 description = "Offensive API tester tool automates checks for common API vulnerabilities"
 optional = false
-python-versions = ">=3.11,<4.0"
+python-versions = "<4.0,>=3.11"
 files = [
-    {file = "offat-0.15.4-py3-none-any.whl", hash = "sha256:562058317318184bedccd5b5dcec24a975844b3bbb92a89ea76d1b7ffd7a9bfa"},
-    {file = "offat-0.15.4.tar.gz", hash = "sha256:ee6cfc7110057578112fa140779b6e5e7528b44be6f840853abe6b6dc9ee6736"},
+    {file = "offat-0.16.0-py3-none-any.whl", hash = "sha256:50d8036e832ffd789278c516b7b299a6e9da0d129f50f53438359ff7913bc054"},
+    {file = "offat-0.16.0.tar.gz", hash = "sha256:365162c2db9504a5b666f9d22f79b0976ac050ce89d6607708168202f1ee5c6d"},
 ]
 
 [package.dependencies]
@@ -1018,13 +1018,13 @@ files = [
 
 [[package]]
 name = "s3transfer"
-version = "0.10.0"
+version = "0.10.1"
 description = "An Amazon S3 Transfer Manager"
 optional = false
 python-versions = ">= 3.8"
 files = [
-    {file = "s3transfer-0.10.0-py3-none-any.whl", hash = "sha256:3cdb40f5cfa6966e812209d0994f2a4709b561c88e90cf00c2696d2df4e56b2e"},
-    {file = "s3transfer-0.10.0.tar.gz", hash = "sha256:d0c8bbf672d5eebbe4e57945e23b972d963f07d82f661cabf678a5c88831595b"},
+    {file = "s3transfer-0.10.1-py3-none-any.whl", hash = "sha256:ceb252b11bcf87080fb7850a224fb6e05c8a776bab8f2b64b7f25b969464839d"},
+    {file = "s3transfer-0.10.1.tar.gz", hash = "sha256:5683916b4c724f799e600f41dd9e10a9ff19871bf87623cc8f491cb4f5fa0a19"},
 ]
 
 [package.dependencies]
@@ -1076,18 +1076,18 @@ doc = ["reno", "sphinx", "tornado (>=4.5)"]
 
 [[package]]
 name = "urllib3"
-version = "2.0.7"
+version = "2.2.1"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "urllib3-2.0.7-py3-none-any.whl", hash = "sha256:fdb6d215c776278489906c2f8916e6e7d4f5a9b602ccbcfdf7f016fc8da0596e"},
-    {file = "urllib3-2.0.7.tar.gz", hash = "sha256:c97dfde1f7bd43a71c8d2a58e369e9b2bf692d1334ea9f9cae55add7d0dd0f84"},
+    {file = "urllib3-2.2.1-py3-none-any.whl", hash = "sha256:450b20ec296a467077128bff42b73080516e71b56ff59a60a02bef2232c4fa9d"},
+    {file = "urllib3-2.2.1.tar.gz", hash = "sha256:d0570876c61ab9e520d776c38acbbb5b05a776d3f9ff98a5c8fd5162a444cf19"},
 ]
 
 [package.extras]
 brotli = ["brotli (>=1.0.9)", "brotlicffi (>=0.8.0)"]
-secure = ["certifi", "cryptography (>=1.9)", "idna (>=2.0.0)", "pyopenssl (>=17.1.0)", "urllib3-secure-extra"]
+h2 = ["h2 (>=4,<5)"]
 socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
 zstd = ["zstandard (>=0.18.0)"]
 
@@ -1197,4 +1197,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "df0944268226e78fecc8194f5dc874e42eb0f8f20e5bbd146cf969d91c9edcf8"
+content-hash = "208d7367a8b2e9dae9e7cdb027a2db8133d27e6b88d6b8244001442da9749482"
