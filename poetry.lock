@@ -651,13 +651,13 @@ files = [
 
 [[package]]
 name = "offat"
-version = "0.19.0"
+version = "0.19.2"
 description = "Offensive API tester tool automates checks for common API vulnerabilities"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "offat-0.19.0-py3-none-any.whl", hash = "sha256:b6e34aff1011a4b763d8a111d88514ec6d2ad0a4fdbfd2379a85132ae2612764"},
-    {file = "offat-0.19.0.tar.gz", hash = "sha256:b8b4be85f3f05f947aed09060d0948450caa07b4e3152b7f586f3b74b6318ee4"},
+    {file = "offat-0.19.2-py3-none-any.whl", hash = "sha256:066ad66d4fafb52f8d7b58bebcc2780646c7a77091682b321053d562d8a98d88"},
+    {file = "offat-0.19.2.tar.gz", hash = "sha256:6930f7e81ed86f34316264960d371a42c8608f3b672405c37ca47bfe6f8c24de"},
 ]
 
 [package.dependencies]
@@ -666,7 +666,7 @@ aiolimiter = ">=1.1.0,<2.0.0"
 openapi-spec-validator = ">=0.7.1,<0.8.0"
 pyyaml = ">=6.0,<7.0"
 rich = ">=13.7.0,<14.0.0"
-setuptools = ">=69.0.3,<70.0.0"
+setuptools = ">=69.0.3,<71.0.0"
 tenacity = ">=8.2.3,<9.0.0"
 
 [package.extras]
@@ -1208,4 +1208,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "7add1508197a1211ed266cb5b4a232277ce3fb0d16527cded8dcf28ff2e0461d"
+content-hash = "695633fe2fa380cf17deeb7daa041b44f23f0912f0f22c9ae63dd6449db10d50"
