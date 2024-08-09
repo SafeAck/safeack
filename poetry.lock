@@ -141,17 +141,17 @@ tests-no-zope = ["attrs[tests-mypy]", "cloudpickle", "hypothesis", "pympler", "p
 
 [[package]]
 name = "boto3"
-version = "1.34.73"
+version = "1.34.157"
 description = "The AWS SDK for Python"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "boto3-1.34.73-py3-none-any.whl", hash = "sha256:4d68e7c7c1339e251c661fd6e2a34e31d281177106326712417fed839907fa84"},
-    {file = "boto3-1.34.73.tar.gz", hash = "sha256:f45503333286c03fb692a3ce497b6fdb4e88c51c98a3b8ff05071d7f56571448"},
+    {file = "boto3-1.34.157-py3-none-any.whl", hash = "sha256:3cc357156df5482154a016f138d1953061a181b4c594f8b6302c9d6c024bd950"},
+    {file = "boto3-1.34.157.tar.gz", hash = "sha256:7ef19ed38cba9863b58430fb4a66a72a5c250304f234bd1c16b860f9bf25677b"},
 ]
 
 [package.dependencies]
-botocore = ">=1.34.73,<1.35.0"
+botocore = ">=1.34.157,<1.35.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.10.0,<0.11.0"
 
@@ -160,13 +160,13 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.34.73"
+version = "1.34.157"
 description = "Low-level, data-driven core of boto 3."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "botocore-1.34.73-py3-none-any.whl", hash = "sha256:88d660b711cc5b5b049e15d547cb09526f86e48c15b78dacad78522109502b91"},
-    {file = "botocore-1.34.73.tar.gz", hash = "sha256:8df020b6682b9f1e9ee7b0554d5d0c14b7b23e3de070c85bcdf07fb20bfe4e2b"},
+    {file = "botocore-1.34.157-py3-none-any.whl", hash = "sha256:c6cba6de8eb86ca4d2f934e009b37adbe1e7fdcfa52fbab74783f4c30676e07d"},
+    {file = "botocore-1.34.157.tar.gz", hash = "sha256:5628a36cec123cdc8c1158d05a7b06aa5e53649ad73796c50ef3fb51199785fb"},
 ]
 
 [package.dependencies]
@@ -175,7 +175,7 @@ python-dateutil = ">=2.1,<3.0.0"
 urllib3 = {version = ">=1.25.4,<2.2.0 || >2.2.0,<3", markers = "python_version >= \"3.10\""}
 
 [package.extras]
-crt = ["awscrt (==0.19.19)"]
+crt = ["awscrt (==0.21.2)"]
 
 [[package]]
 name = "certifi"
@@ -1208,4 +1208,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "7add1508197a1211ed266cb5b4a232277ce3fb0d16527cded8dcf28ff2e0461d"
+content-hash = "8e89e22af33a3d340095ff03451467cf2bc9b9a617e7cea3d7d18045a441e99b"
